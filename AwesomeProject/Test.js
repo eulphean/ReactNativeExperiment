@@ -18,12 +18,14 @@ export default class Test extends Component {
     return (
         <View 
             accessible={ true } 
-            accessibilityTraversalAfter={ this.props.traversalAfter } 
+            accessibilityTraversalAfter={ this.props.traverseBefore }
+            accessibilityComponentType={ 'view' }
         >
             <View
-                  accessibilityLabel={ this.props.label } 
-                  accessibilityComponentType={ 'button' }
-                  style={ styles.testView } 
+                accessible={ true }
+                accessibilityLabel={ this.props.label } 
+                accessibilityComponentType={ 'button' }
+                style={ styles.testView } 
             />
         </View>
     );
