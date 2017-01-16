@@ -8,13 +8,17 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
-  View,
-  findNodeHandle,
-  TouchableHighlight
+  View
 } from 'react-native';
 
 import TestStructure from './TestStructure';
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
 
 export default class AwesomeProject extends Component {
   render() {
@@ -26,18 +30,4 @@ export default class AwesomeProject extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  updateButton: {
-    marginTop: 50,
-    backgroundColor: 'orange'
-  }
-});
-
 AppRegistry.registerComponent('AwesomeProject', () => AwesomeProject);

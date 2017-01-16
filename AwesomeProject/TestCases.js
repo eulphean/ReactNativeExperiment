@@ -10,7 +10,7 @@ import {
   StyleSheet,
   Text,
   View,
-  findNodeHandle
+  TouchableHighlight
 } from 'react-native';
 
 var payload_reset = {
@@ -45,25 +45,60 @@ var payload_4 = {
   previousTagSet: [3, 2, 1, 0]
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  buttonText: {
+    fontSize: 20,
+    textAlign: 'center',
+    color: 'black'
+  },
+  button: {
+    width: 40,
+    height: 20,
+    backgroundColor: 'orange'
+  }
+});
+
 export default class TestCases extends Component {
   _accessibilityPayload = {};
 
   render() {
     return (
       <View style={ styles.container } >
-        <TouchableHighlight onPress={ this.setAccessibilityPayload(0) } >
+        <TouchableHighlight 
+          style={ styles.button } 
+          onPress={ this._setAccessibilityPayload(0) } >
           <Text>
               { 'Reset Views' }
           </Text>
         </TouchableHighlight>
-    <TouchableHighlight onPress={ this.setNextAccessibilityPayload(1) } >
+        <TouchableHighlight 
+          style={ styles.button } 
+          onPress={ this._setNextAccessibilityPayload(1) } 
+        >
           <Text style={ styles.buttonText } >
               { 'Scenario 1' }
           </Text>
         </TouchableHighlight>
-        <TouchableHighlight onPress={ this.setNextAccessibilityPayload(2) } >
+        <TouchableHighlight 
+          style={ styles.button } 
+          onPress={ this._setNextAccessibilityPayload(2) } 
+        >
           <Text style={ styles.buttonText } >
               { 'Scenario 2' }
+          </Text>
+        </TouchableHighlight>
+        <TouchableHighlight 
+          style={ styles.button }
+          onPress={ this._setNextAccessibilityPayload(3) } 
+        >
+          <Text style={ styles.buttonText } >
+              { 'Scenario 3' }
           </Text>
         </TouchableHighlight>
       </View>
@@ -89,20 +124,7 @@ export default class TestCases extends Component {
           break;
       }
     }
-  }
+  };
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  buttonText: {
-    fontSize: 20,
-    textAlign: 'center'
-  }
-});
 
 module.exports = TestCases;
