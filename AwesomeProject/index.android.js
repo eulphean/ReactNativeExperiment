@@ -10,53 +10,20 @@ import {
   StyleSheet,
   Text,
   View,
-  findNodeHandle
+  findNodeHandle,
+  TouchableHighlight
 } from 'react-native';
 
-var Test = require('./Test');
+import TestStructure from './TestStructure';
 
 export default class AwesomeProject extends Component {
-  _keys = ["first", "second", "third", "fourth"];
-
-  constructor(props) {
-    super(props);
-    this.state= { viewTags: [] };
-  }
-
   render() {
+    // Test Structure
     return (
       <View style={ styles.container } >
-        <Test 
-            ref="first" 
-            traverseBefore={ this.state.viewTags ? this.state.viewTags[3] : null }
-            label={ 'First' }
-        />
-        <Test 
-            ref="second"
-            traverseBefore={ this.state.viewTags ? this.state.viewTags[0] : null }  
-            label={ 'Second' } 
-          />
-        <Test 
-            ref="third" 
-            traverseBefore={ this.state.viewTags ? this.state.viewTags[1] : null }
-            label={ 'Third' } 
-        />
-        <Test 
-            traverseBefore={ this.state.viewTags ? this.state.viewTags[2] : null }
-            ref="fourth" 
-            label={ 'Fourth' } 
-        />
+        <TestStructure />
       </View>
     );
-  }
-
-  componentDidMount() {
-    var tags = this._keys.map(k => findNodeHandle(this.refs[k]));
-    this.setState({viewTags: tags});
-  }
-
-  componentDidUpdate() {
-
   }
 }
 
