@@ -1,8 +1,9 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * index.android.js
+ * Author: Amay Kataria
+ * Description: Root component for hosting the test structure. 
  */
+
 
 import React, { Component } from 'react';
 import {

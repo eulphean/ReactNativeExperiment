@@ -1,7 +1,7 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
+ * TestView.js
+ * Author: Amay Kataria
+ * Description: Simple wrapper for a test view
  */
 
 import React, { Component } from 'react';
@@ -13,9 +13,10 @@ import {
 
 const styles = StyleSheet.create({
   testView: {
+    marginTop: 20,
     backgroundColor: 'red',
-    height: 20, 
-    width: 40
+    height: 40, 
+    width: 80
   }
 });
 
@@ -24,10 +25,10 @@ export default class TestView extends Component {
     return (
         <View
             accessible={ this.props.nextAccessible }
-            accessibilityTraversalAfter={ this.props.previous }
-            accessibilityTraversalBefore={ this.props.next }
-            accessibilityLabel={ this.props.label } 
-            accessibilityComponentType={ 'button' }
+            accessibilityLabel={ this.props.nextAccessibilityLabel } 
+            accessibilityComponentType={ this.props.nextAccessibilityComponentType }
+            accessibilityTraversalAfter={ this.props.previousTag }
+            accessibilityTraversalBefore={ this.props.nextTag }
             style={ styles.testView } 
         />
     );
