@@ -18,16 +18,16 @@ var payload_reset = {
   nextAccessibleSet: [ true, true, true, true ],
   nextComponentTypeSet: [ 'none', 'none', 'none', 'none' ],
   nextLabelSet: [ 'Hello', 'What', 'is', 'that' ],
-  nextViewTagSet: [0, 1, 2, 3],
-  previousViewTagSet: [3, 2, 1, 0]
+  nextViewTagSet: [0, 0, 0, 0 ],
+  previousViewTagSet: [0, 0, 0, 0]
 }
 
 var payload_1 = {
   nextAccessibleSet: [ true, true, true, true ],
   nextComponentTypeSet: [ 'button', 'button', 'button', 'button' ],
   nextLabelSet: [ 'Hello', 'What', 'is', 'that' ],
-  nextViewTagSet: [],
-  previousViewTagSet: [3, 2, 0, 1]
+  nextViewTagSet: [0, 0, 0, 0],
+  previousViewTagSet: []
 }
 
 var payload_2 = {

@@ -104,7 +104,7 @@ export default class TestStructure extends Component {
     return testViews;
   };
 
-  _getViewTagForViewIdx(idx){
+  _getViewTagForViewIdx(idx) {
     if (this.state.testViewTags) {
       return this.state.testViewTags[idx];
     }
