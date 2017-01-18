@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Text,
   View,
-  findNodeHandle
+  findNodeHandle,
+  AccessibilityInfo
 } from 'react-native';
 
 import TestCases from './TestCases';
@@ -39,6 +40,8 @@ const _keyPrefix = 'vKey-'
 
 export default class TestStructure extends Component {
   _viewRefs = [];
+  _mounted = false; 
+
   constructor(props) {
     super(props);
     // Initial state
@@ -50,8 +53,23 @@ export default class TestStructure extends Component {
         nextViewTagSet: [0, 1, 2, 3],
         previousViewTagSet: [3, 2, 1, 0]
       },
-      testViewTags: []
+      testViewTags: [],
+      talkbackEnabled: false
     };
+
+    // Register for the event. 
+    AccessibilityInfo.addEventListener(
+      'change',
+      _handleTouchExplorationChange
+    );
+
+    // Fetch the current state and see if it's enabled. If yes, 
+    // initialize the state properly. 
+    AccessibilityInfo.fetch().done((enabled) => {
+      if (enabled) {
+        this.state.talkbackEnabled = true;
+      }
+    });
   }
 
   // Choose whatever degree of hierarchy you want. 
@@ -76,10 +94,19 @@ export default class TestStructure extends Component {
   }
 
   componentDidMount() {
+    this._mounted = true; 
     // Collect the view tags and save it in a state. We will need these tags
     // to properly set next and previous tags for views. 
     var tags = this._viewRefs.map(k => findNodeHandle(this.refs[k]));
     this.setState({ testViewTags: tags });
+  }
+
+  componentWillUnmount() {
+    this._mounted = false;
+  }
+
+  _handleTouchExplorationChange (isEnabled) {
+
   }
 
   _getTestViewCollection (nextAccessibleSet, nextComponentTypeSet, nextLabelSet, nextViewTagSet, previousViewTagSet) {
@@ -93,6 +120,7 @@ export default class TestStructure extends Component {
        <TestView
           key={ _keyPrefix + i }
           ref={ currentRef }
+          talkbackEnabled={ this.state.talkbackEnabled }
           nextAcessible={ nextAccessibleSet ? nextAccessibleSet[i] : undefined }
           nextAccessibilityComponentType={ nextComponentTypeSet ? nextComponentTypeSet[i] : undefined }
           nextAccessibilityLabel={ nextLabelSet ? nextLabelSet[i] : undefined }

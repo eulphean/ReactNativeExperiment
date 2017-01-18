@@ -17,11 +17,21 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     height: 40, 
     width: 80
+  },
+  testViewAccessible: {
+    marginTop: 20,
+    backgroundColor: 'green',
+    height: 40, 
+    width: 80
   }
 });
 
 export default class TestView extends Component {
   render() {
+    const testViewStyle = this.props.talkbackEnabled ? 
+        styles.testViewAccessible : 
+        styles.testView;
+        
     return (
         <View
             accessible={ this.props.nextAccessible }
@@ -29,7 +39,7 @@ export default class TestView extends Component {
             accessibilityComponentType={ this.props.nextAccessibilityComponentType }
             nextFocusableView={ this.props.nextTag }
             previousFocusableView={ this.props.previousTag }
-            style={ styles.testView } 
+            style={ testViewStyle } 
         />
     );
   }
