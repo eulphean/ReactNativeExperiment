@@ -27,8 +27,8 @@ export default class TestView extends Component {
             accessible={ this.props.nextAccessible }
             accessibilityLabel={ this.props.nextAccessibilityLabel } 
             accessibilityComponentType={ this.props.nextAccessibilityComponentType }
-            accessibilityTraversalAfter={ this.props.nextTag }
-            accessibilityTraversalBefore={ this.props.previousTag }
+            nextFocusableView={ this.props.nextTag }
+            previousFocusableView={ this.props.previousTag }
             style={ styles.testView } 
         />
     );

@@ -18,7 +18,7 @@ var payload_reset = {
   nextAccessibleSet: [ true, true, true, true ],
   nextComponentTypeSet: [ 'none', 'none', 'none', 'none' ],
   nextLabelSet: [ 'Hello', 'What', 'is', 'that' ],
-  nextViewTagSet: [0, 0, 0, 0 ],
+  nextViewTagSet: [3, 2, 1, 0 ],
   previousViewTagSet: [0, 0, 0, 0]
 }
 
