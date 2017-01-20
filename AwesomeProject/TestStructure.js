@@ -56,13 +56,10 @@ export default class TestStructure extends Component {
       testViewTags: [],
       talkbackEnabled: false
     };
-
-    // Register for the event. 
     AccessibilityInfo.addEventListener(
       'change',
-      _handleTouchExplorationChange
+      this._handleTouchExplorationChange.bind(this)
     );
-
     // Fetch the current state and see if it's enabled. If yes, 
     // initialize the state properly. 
     AccessibilityInfo.fetch().done((enabled) => {
@@ -106,7 +103,11 @@ export default class TestStructure extends Component {
   }
 
   _handleTouchExplorationChange (isEnabled) {
-
+      if (this._mounted) {
+        this.setState({
+            talkbackEnabled: isEnabled
+        });
+      }
   }
 
   _getTestViewCollection (nextAccessibleSet, nextComponentTypeSet, nextLabelSet, nextViewTagSet, previousViewTagSet) {
