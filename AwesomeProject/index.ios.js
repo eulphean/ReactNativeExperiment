@@ -10,14 +10,42 @@ import {
   StyleSheet,
   Text,
   View,
-  NodeHandle
+  NodeHandle,
+  AccessibilityInfo
 } from 'react-native';
 
 export default class AwesomeProject extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state={ 
+      isScreenReaderEnabled: false
+    };
+    AccessibilityInfo.addEventListener(
+      'change',
+      this._handleTouchExplorationChange.bind(this)
+    );
+    AccessibilityInfo.fetch().done((enabled) => {
+      if (this.state.isScreenReaderEnabled === enabled) {
+        // nothing changed. 
+        return;
+      }
+      this.state.isScreenReaderEnabled = enabled;
+    });
+  }
+
+  _handleTouchExplorationChange (isEnabled) {
+    this.setState({
+        talkbackEnabled: isEnabled
+    });
+  }
+
   render() {
+    const welcomeStyle = this.state.isScreenReaderEnabled ? styles.welcomeAccessible :
+      styles.welcome;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
+        <Text style={ welcomeStyle }>
           Welcome to React Native!
         </Text>
         <Text style={styles.instructions}>
@@ -43,6 +71,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  welcomeAccessible: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    color: 'green'
   },
   instructions: {
     textAlign: 'center',
