@@ -13,6 +13,9 @@ import {
 } from 'react-native';
 
 import TestStructure from './TestStructure';
+import ScrollTest from './ScrollTest';
+import HiddenTest from './HiddenTest';
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -26,7 +29,7 @@ export default class AwesomeProject extends Component {
     // Test Structure
     return (
       <View style={ styles.container } >
-        <TestStructure />
+        <HiddenTest />
       </View>
     );
   }
