@@ -1,7 +1,7 @@
 /**
  * ScrollTest.js
  * Author: Amay Kataria
- * Description: DOM hierarychy for a scroll view
+ * Description: Test views for accessibility hidden properties. 
  */
 
 import React, { Component } from 'react';
@@ -13,7 +13,8 @@ import {
   findNodeHandle,
   AccessibilityInfo,
   TouchableHighlight,
-  ScrollView
+  ScrollView,
+  TextInput
 } from 'react-native';
 
 import TestView from './TestView';
@@ -29,54 +30,30 @@ const styles = StyleSheet.create({
     height: 200
   },
   newTestView: {
-      position: 'absolute',
+      marginTop: 50,
       height: 40,
-      width: 80,
-      backgroundColor: 'blue'
-  },
-  absoluteView1: {
-      top: 10
-  },
-  absoluteView2: {
-      top: 60
-  },
-  absoluteView3: {
-      top: 110
-  },
-  scrollContainer: {
-    flex: 1,
-    position: 'relative',
-    flexDirection: 'column'
+      backgroundColor: 'blue',
+      alignItems: 'center'  
   },
   testViewHierarchy: {
     flex: 1, 
     flexDirection: 'column'
   },
-  testButtons: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center'
+  textStyle1: {
+      marginTop: 10
   },
-  testButtonEach: {
-      flex: 1,
-      height: 50,
-      width: 80,
-      marginRight: 20,
-      backgroundColor: 'blue'
-  },
-  itemStyle: {
-      flex: 1,
-      height: 50, 
-      width: 80,
-      marginBottom: 20,
-      backgroundColor: 'green'
-  },
-  scrollViewItemContainer: {
-      flex: 1,
-      flexDirection: 'column',
-      height: 400
+  textStyle2: {
+      color: 'white',
+      marginTop: 10
   }
 });
+
+const testCount = 3;
+const viewConfig = {
+    0: { accessible: true, importantForAccessibility: 'yes' },
+    1: { accessible: true, importantForAccessibility: 'no' },
+    2: { accessible: true, importantForAccessibility: 'no-hide-descendants' }
+};
 
 export default class HiddenTest extends Component {
   constructor(props) {
@@ -85,38 +62,31 @@ export default class HiddenTest extends Component {
 
   // Choose whatever degree of hierarchy you want. 
   render() {
+    let testStructure = this._populateTestViews();
     return (
         <View style={ styles.container } >
-            <View 
-                accessible={ true } 
-                importantForAccessibility={ 'yes' }
-                style={ [styles.newTestView, styles.absoluteView2] } 
-            >
-                <Text> { 'Important - Yes' } </Text>
-            </View>
-            <View 
-                accessible={ true } 
-                importantForAccessibility={ 'no' }
-                style={ [styles.newTestView, styles.absoluteView3] } 
-            >
-                 <Text> { 'Important - No' } </Text>
-            </View>
-            <View 
-                accessible={ true } 
-                importantForAccessibility={ 'no-hide-descendants' }
-                style={ [styles.newTestView, styles.absoluteView1] } 
-            >
-                <Text> { 'Important - No - Hide' } </Text>
-            </View>
-            <View 
-                accessible={ true } 
-                style={ [styles.newTestView, styles.absoluteView1] } 
-            >
-                <Text> { 'Important - Auto' } </Text>
-            </View>
+            { testStructure }
         </View>
     )
   }
+
+  _populateTestViews() {
+    let testStructure = [];
+    for (let i = 0; i < testCount; i++) {
+        testStructure.push(
+            <View
+                accessible={ viewConfig[i].accessible }
+                importantForAccessibility={ viewConfig[i].importantForAccessibility }
+                key={ 'key: ' + i }
+                style={ [styles.newTestView] }
+            >
+                <Text style={ styles.textStyle1 }> { 'Test label - ' + i } </Text>
+                <Text style={ styles.textStyle2 }> { 'Test label - ' + i } </Text>
+            </View>
+        )
+    }
+    return testStructure;
+  }
 }
 
-module.exports = ScrollTest;
+module.exports = HiddenTest;
