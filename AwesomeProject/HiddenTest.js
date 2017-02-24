@@ -54,10 +54,10 @@ const viewConfig = {
         importantForAccessibilityGroup: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         groupLabel: 'Group label.',
-        importantForAccessibility1: undefined, // Not focusable, not importantForAccessibility, not isAccessibilityElement
+        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         childLabel1: 'First test.' ,
-        importantForAccessibility2: undefined, // Not focusable, not importantForAccessibility, not isAccessibilityElement
+        importantForAccessibility2: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         childLabel2: 'Second test.'
     },
@@ -76,9 +76,9 @@ const viewConfig = {
         importantForAccessibilityGroup: 'yes',// Focusable, importantForAccessibility, isAccessibilityElement,
                                             // accessibilityElementsHidden
         groupLabel: 'Group label.',
-        importantForAccessibility1: 'no-hide-descendants', // Hide the group.
+        importantForAccessibility1: 'no-hide-descendants', // Hide the group. Everything not.
         childLabel1: 'First test.' ,
-        importantForAccessibility2: 'no-hide-descendants', // Hide the group.
+        importantForAccessibility2: 'no-hide-descendants', // Hide the group. Everything not. 
         childLabel2: 'Second test.'
     },
     3: { // iOS discrepancy. We always collect the label (this is the same as Default case). So it reads First Test. 
@@ -89,7 +89,7 @@ const viewConfig = {
         importantForAccessibility1: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                           // not accessibilityElementsHidden
         childLabel1: 'First test.' ,
-        importantForAccessibility2: 'no-hide-descendants', // Hide the group.
+        importantForAccessibility2: 'no-hide-descendants', // Hide the group. Everything not. 
         childLabel2: 'Second test.'
     },
     4: { 
@@ -99,7 +99,7 @@ const viewConfig = {
         importantForAccessibility1: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         childLabel1: undefined,
-        importantForAccessibility2: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+        importantForAccessibility2: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         childLabel2: undefined
     },
@@ -115,10 +115,10 @@ const viewConfig = {
         childLabel2: 'Second test.'
     },
     6: { 
-        importantForAccessibilityGroup: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+        importantForAccessibilityGroup: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         groupLabel: 'Group label.',
-        importantForAccessibility1: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+        importantForAccessibility1: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                           // not accessibilityElementsHidden
         childLabel1: 'First test.' ,
         importantForAccessibility2: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
@@ -126,7 +126,7 @@ const viewConfig = {
         childLabel2: 'Second test.'
     },
     7: { 
-        importantForAccessibilityGroup: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+        importantForAccessibilityGroup: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         groupLabel: 'Group label.',
         importantForAccessibility1: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
@@ -137,7 +137,7 @@ const viewConfig = {
         childLabel2: 'Second test.'
     },
     8: { 
-        importantForAccessibilityGroup: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+        importantForAccessibilityGroup: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                          // not accessibilityElementsHidden
         groupLabel: 'Group label.',
         importantForAccessibility1: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
@@ -171,7 +171,7 @@ const viewConfig = {
         childLabel2: 'Second test.'
     },
     11: {  
-        importantForAccessibilityGroup: 'yes',  // Not Focusable, not importantForAccessibility, isAccessibilityElement,
+        importantForAccessibilityGroup: 'yes',  // Focusable, importantForAccessibility, isAccessibilityElement,
                                            // accessibilityElementsHidden
         groupLabel: undefined,
         importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
@@ -182,31 +182,31 @@ const viewConfig = {
         childLabel2: 'Second test.'
     },
     12: {  
-        importantForAccessibilityGroup: 'yes',  // Not Focusable, not importantForAccessibility, isAccessibilityElement,
+        importantForAccessibilityGroup: 'yes',  // Focusable, importantForAccessibility, isAccessibilityElement,
                                            // accessibilityElementsHidden
         groupLabel: undefined,
         importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
                                            // not accessibilityElementsHidden
         childLabel1: undefined,
         importantForAccessibility2: undefined, // Not Focusable, importantForAccessibility, not isAccessibilityElement,
-                                           // accessibilityElementsHidden
+                                           // not accessibilityElementsHidden
         childLabel2: undefined
     },
     13: { // Android discrepancy: Since the parent is importantForAccessibility, it just reads that label. iOS reads the text view
           // content individually. 
-        importantForAccessibilityGroup: undefined,  // Not Focusable, importantForAccessibility, isAccessibilityElement,
-                                           // accessibilityElementsHidden
+        importantForAccessibilityGroup: undefined,  // Not Focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // not accessibilityElementsHidden
         groupLabel: 'Group Label',
         importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
                                            // not accessibilityElementsHidden
         childLabel1: undefined,
         importantForAccessibility2: undefined, // Not Focusable, importantForAccessibility, not isAccessibilityElement,
-                                           // accessibilityElementsHidden
+                                           // not accessibilityElementsHidden
         childLabel2: undefined
     },
     14: {  
-        importantForAccessibilityGroup: 'no-hide-descendants',  // Not Focusable, not importantForAccessibility, isAccessibilityElement,
-                                           // accessibilityElementsHidden
+        importantForAccessibilityGroup: 'no-hide-descendants',  // Not Focusable, not importantForAccessibility, not isAccessibilityElement,
+                                           // accessibilityElementsHidden is true.
         groupLabel: 'Group Label',
         importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
                                            // not accessibilityElementsHidden
