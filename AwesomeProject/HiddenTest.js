@@ -1,7 +1,7 @@
 /**
- * ScrollTest.js
+ * HiddenTest.js
  * Author: Amay Kataria
- * Description: Test views for accessibility hidden properties. 
+ * Description: Test Structure for React-Native Accessibility APIs. 
  */
 
 import React, { Component } from 'react';
@@ -46,58 +46,175 @@ const styles = StyleSheet.create({
   }
 });
 
-const testCount = 10;
+const testCount = 15;
 const viewConfig = {
-    0: { 
+    0: { // Android discrepancy. undefined gives importantForAccessibility=1, so FirstTest and SecondTest
+         // get read. iOS reads the text content. 
         accessible: true, 
-        importantForAccessibility: 'yes', 
-        importantForAccessibilityDescendant: undefined, 
-        descendantLabel: 'First case. ' },
+        importantForAccessibilityGroup: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        groupLabel: 'Group label.',
+        importantForAccessibility1: undefined, // Not focusable, not importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: undefined, // Not focusable, not importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
     1: { 
-        accessible: true, 
-        importantForAccessibility: 'no', 
-        importantForAccessibilityDescendant: 'yes', 
-        descendantLabel: undefined },
+        importantForAccessibilityGroup: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                                // accessibilityElementsHidden
+        groupLabel: 'Group label.',
+        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        childLabel1: 'First test.',
+        importantForAccessibility2: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
     2: { 
-        accessible: true, 
-        importantForAccessibility: 'no-hide-descendants', 
-        importantForAccessibilityDescendant: 'yes',
-        descendantLabel: 'I should not be read out by the screen reader.' },
-    3: { 
-        accessible: true, 
-        importantForAccessibility: 'yes', 
-        importantForAccessibilityDescendant: 'no-hide-descendants',
-        descendantLabel: 'I should not be read out by the sreen reader.' },
+        importantForAccessibilityGroup: 'yes',// Focusable, importantForAccessibility, isAccessibilityElement,
+                                            // accessibilityElementsHidden
+        groupLabel: 'Group label.',
+        importantForAccessibility1: 'no-hide-descendants', // Hide the group.
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: 'no-hide-descendants', // Hide the group.
+        childLabel2: 'Second test.'
+    },
+    3: { // iOS discrepancy. We always collect the label (this is the same as Default case). So it reads First Test. 
+         // Android reads it as Test View 3. Android reads the text view label. 
+        importantForAccessibilityGroup: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: undefined,
+        importantForAccessibility1: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
+                                          // not accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: 'no-hide-descendants', // Hide the group.
+        childLabel2: 'Second test.'
+    },
     4: { 
-        accessible: true, 
-        importantForAccessibility: 'yes', 
-        importantForAccessibilityDescendant: undefined,
-        descendantLabel: 'I should be read out a loud.' },
-    5: { 
-        accessible: true, 
-        importantForAccessibility: undefined, 
-        importantForAccessibilityDescendant: 'yes',
-        descendantLabel: 'I should be read out a loud.' },
+        importantForAccessibilityGroup: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: undefined,
+        importantForAccessibility1: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        childLabel1: undefined,
+        importantForAccessibility2: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        childLabel2: undefined
+    },
+    5: { // Android - Discrepancy. Text view labels are read out. iOS ignores the descendants.  Very weird. 
+        importantForAccessibilityGroup: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: undefined,
+
+        importantForAccessibility1: 'no-hide-descendants', // Hide the group.
+        childLabel1: 'First test.' ,
+
+        importantForAccessibility2: 'no-hide-descendants', // Hide the group.
+        childLabel2: 'Second test.'
+    },
     6: { 
-        accessible: true, 
-        importantForAccessibility: undefined, 
-        importantForAccessibilityDescendant: 'yes',
-        descendantLabel: 'I should be read out a loud.' },
+        importantForAccessibilityGroup: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        groupLabel: 'Group label.',
+        importantForAccessibility1: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                          // not accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                          // not accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
     7: { 
-        accessible: true, 
-        importantForAccessibility: 'yes', 
-        importantForAccessibilityDescendant: 'yes',
-        descendantLabel: 'I should get focus.' },
-     8: { 
-        accessible: true, 
-        importantForAccessibility: 'auto', 
-        importantForAccessibilityDescendant: 'auto',
-        descendantLabel: 'Should I get focus?' },
-     9: { 
-        accessible: true, 
-        importantForAccessibility: undefined, 
-        importantForAccessibilityDescendant: undefined,
-        descendantLabel: 'Should I get focus?' }
+        importantForAccessibilityGroup: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                              // not accessibilityElementsHidden
+        groupLabel: 'Group label.',
+        importantForAccessibility1: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
+    8: { 
+        importantForAccessibilityGroup: 'no', // Not focusable, importantForAccessibility, not isAccessibilityElement
+                                         // not accessibilityElementsHidden
+        groupLabel: 'Group label.',
+        importantForAccessibility1: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
+                                          // not accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
+    9: {  
+        importantForAccessibilityGroup: 'yes',  // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: 'Group label.',
+        importantForAccessibility1: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: 'yes', // Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
+    10: { // Android discrepancy: It reads the label FirstTest because default sets importantForAccessibility as true. iOS reads 
+         // text view labels. 
+        importantForAccessibilityGroup: 'no',  // Not Focusable, not importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: undefined,
+        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // not accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: undefined, // Not Focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
+    11: {  
+        importantForAccessibilityGroup: 'yes',  // Not Focusable, not importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: undefined,
+        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // not accessibilityElementsHidden
+        childLabel1: 'First test.' ,
+        importantForAccessibility2: undefined, // Not Focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: 'Second test.'
+    },
+    12: {  
+        importantForAccessibilityGroup: 'yes',  // Not Focusable, not importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: undefined,
+        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // not accessibilityElementsHidden
+        childLabel1: undefined,
+        importantForAccessibility2: undefined, // Not Focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: undefined
+    },
+    13: { // Android discrepancy: Since the parent is importantForAccessibility, it just reads that label. iOS reads the text view
+          // content individually. 
+        importantForAccessibilityGroup: undefined,  // Not Focusable, importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: 'Group Label',
+        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // not accessibilityElementsHidden
+        childLabel1: undefined,
+        importantForAccessibility2: undefined, // Not Focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: undefined
+    },
+    14: {  
+        importantForAccessibilityGroup: 'no-hide-descendants',  // Not Focusable, not importantForAccessibility, isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        groupLabel: 'Group Label',
+        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // not accessibilityElementsHidden
+        childLabel1: undefined,
+        importantForAccessibility2: undefined, // Not Focusable, importantForAccessibility, not isAccessibilityElement,
+                                           // accessibilityElementsHidden
+        childLabel2: undefined
+    }
 };
 
 export default class HiddenTest extends Component {
@@ -122,17 +239,23 @@ export default class HiddenTest extends Component {
     for (let i = 0; i < testCount; i++) {
         testStructure.push(
             <View
-                importantForAccessibility={ viewConfig[i].importantForAccessibility }
+                importantForAccessibility={ viewConfig[i].importantForAccessibilityGroup }
+                accessibilityLabel={ viewConfig[i].groupLabel }
                 key={ 'key: ' + i }
                 style={ [styles.newTestView] }
             >
                 <View 
-                    importantForAccessibility={ viewConfig[i].importantForAccessibilityDescendant }
-                    accessibilityLabel={ viewConfig[i].descendantLabel } 
+                    importantForAccessibility={ viewConfig[i].importantForAccessibility1 }
+                    accessibilityLabel={ viewConfig[i].childLabel1 } 
                 >
-                    <Text style={ styles.textStyle1 }> { '1: Test label - ' + i } </Text>
+                    <Text style={ styles.textStyle1 }> { 'Test View ' + i }</Text>
                 </View>
-                <Text style={ styles.textStyle2 }> { '2: Test label - ' + i } </Text>
+                <View
+                    importantForAccessibility={ viewConfig[i].importantForAccessibility2 }
+                    accessibilityLabel={ viewConfig[i].childLabel2 } 
+                >
+                    <Text style={ styles.textStyle2 }> { 'Test View ' + i }</Text>
+                </View>
             </View>
         )
     }
