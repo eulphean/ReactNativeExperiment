@@ -21,25 +21,23 @@ import TestView from './TestView';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
     alignSelf: 'stretch',
-    marginTop: 40,
-    height: 200
+    marginTop: 40
   },
   newTestView: {
-      marginTop: 50,
-      height: 40,
-      backgroundColor: 'blue',
-      alignItems: 'center'  
+      flex: 1,
+      marginTop: 20,
+      backgroundColor: 'blue'
   },
   testViewHierarchy: {
     flex: 1, 
     flexDirection: 'column'
   },
   textStyle1: {
+      color: 'white',
       marginTop: 10
   },
   textStyle2: {
@@ -48,11 +46,58 @@ const styles = StyleSheet.create({
   }
 });
 
-const testCount = 3;
+const testCount = 10;
 const viewConfig = {
-    0: { accessible: true, importantForAccessibility: 'yes' },
-    1: { accessible: true, importantForAccessibility: 'no' },
-    2: { accessible: true, importantForAccessibility: 'no-hide-descendants' }
+    0: { 
+        accessible: true, 
+        importantForAccessibility: 'yes', 
+        importantForAccessibilityDescendant: undefined, 
+        descendantLabel: 'First case. ' },
+    1: { 
+        accessible: true, 
+        importantForAccessibility: 'no', 
+        importantForAccessibilityDescendant: 'yes', 
+        descendantLabel: undefined },
+    2: { 
+        accessible: true, 
+        importantForAccessibility: 'no-hide-descendants', 
+        importantForAccessibilityDescendant: 'yes',
+        descendantLabel: 'I should not be read out by the screen reader.' },
+    3: { 
+        accessible: true, 
+        importantForAccessibility: 'yes', 
+        importantForAccessibilityDescendant: 'no-hide-descendants',
+        descendantLabel: 'I should not be read out by the sreen reader.' },
+    4: { 
+        accessible: true, 
+        importantForAccessibility: 'yes', 
+        importantForAccessibilityDescendant: undefined,
+        descendantLabel: 'I should be read out a loud.' },
+    5: { 
+        accessible: true, 
+        importantForAccessibility: undefined, 
+        importantForAccessibilityDescendant: 'yes',
+        descendantLabel: 'I should be read out a loud.' },
+    6: { 
+        accessible: true, 
+        importantForAccessibility: undefined, 
+        importantForAccessibilityDescendant: 'yes',
+        descendantLabel: 'I should be read out a loud.' },
+    7: { 
+        accessible: true, 
+        importantForAccessibility: 'yes', 
+        importantForAccessibilityDescendant: 'yes',
+        descendantLabel: 'I should get focus.' },
+     8: { 
+        accessible: true, 
+        importantForAccessibility: 'auto', 
+        importantForAccessibilityDescendant: 'auto',
+        descendantLabel: 'Should I get focus?' },
+     9: { 
+        accessible: true, 
+        importantForAccessibility: undefined, 
+        importantForAccessibilityDescendant: undefined,
+        descendantLabel: 'Should I get focus?' }
 };
 
 export default class HiddenTest extends Component {
@@ -64,9 +109,11 @@ export default class HiddenTest extends Component {
   render() {
     let testStructure = this._populateTestViews();
     return (
-        <View style={ styles.container } >
-            { testStructure }
-        </View>
+        <ScrollView>
+            <View style={ styles.container }>
+                { testStructure }
+            </View>
+        </ScrollView>
     )
   }
 
@@ -75,13 +122,17 @@ export default class HiddenTest extends Component {
     for (let i = 0; i < testCount; i++) {
         testStructure.push(
             <View
-                accessible={ viewConfig[i].accessible }
                 importantForAccessibility={ viewConfig[i].importantForAccessibility }
                 key={ 'key: ' + i }
                 style={ [styles.newTestView] }
             >
-                <Text style={ styles.textStyle1 }> { 'Test label - ' + i } </Text>
-                <Text style={ styles.textStyle2 }> { 'Test label - ' + i } </Text>
+                <View 
+                    importantForAccessibility={ viewConfig[i].importantForAccessibilityDescendant }
+                    accessibilityLabel={ viewConfig[i].descendantLabel } 
+                >
+                    <Text style={ styles.textStyle1 }> { '1: Test label - ' + i } </Text>
+                </View>
+                <Text style={ styles.textStyle2 }> { '2: Test label - ' + i } </Text>
             </View>
         )
     }
