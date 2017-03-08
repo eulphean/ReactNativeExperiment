@@ -51,13 +51,13 @@ const viewConfig = {
     0: { // Android discrepancy. undefined gives importantForAccessibility=1, so FirstTest and SecondTest
          // get read. iOS reads the text content. 
         accessible: true, 
-        importantForAccessibilityGroup: 'no', // Not focusable, not importantForAccessibility, not isAccessibilityElement
+        importantForAccessibilityGroup: 'yes', // Not focusable, not importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
-        groupLabel: 'Group label.',
-        importantForAccessibility1: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement
+        groupLabel: undefined,
+        importantForAccessibility1: 'yes', // Not focusable, importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         childLabel1: 'First test.' ,
-        importantForAccessibility2: undefined, // Not focusable, importantForAccessibility, not isAccessibilityElement
+        importantForAccessibility2: 'no-hide-descendants', // Not focusable, importantForAccessibility, not isAccessibilityElement
                                               // not accessibilityElementsHidden
         childLabel2: 'Second test.'
     },
@@ -244,7 +244,7 @@ export default class HiddenTest extends Component {
                 key={ 'key: ' + i }
                 style={ [styles.newTestView] }
             >
-                <View 
+                <View
                     importantForAccessibility={ viewConfig[i].importantForAccessibility1 }
                     accessibilityLabel={ viewConfig[i].childLabel1 } 
                 >

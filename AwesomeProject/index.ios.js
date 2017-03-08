@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import HiddenTest from './HiddenTest';
+import ImportantForAccessibilityTest from './ImportantForAccessibilityTest';
 
 const styles = StyleSheet.create({
   container: {
